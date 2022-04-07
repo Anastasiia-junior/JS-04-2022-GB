@@ -31,20 +31,23 @@ const products = [
     {id: 4, title: 'Gamepad', price: 150},
 ];
 
-const renderProduct = (title, price) => `<div class="product-item">
+//не понимаю зачем здесь вообще нужны параметры по умолчанию, они же приходят к нам из базы данных, поэтому не сделала эту часть задания
+
+const renderProduct = (title = 'данных нет', price = 0) => `<div class="product-item">
                 <h3>${title}</h3>
                 <p>${price}</p>
                 <button class="by-btn">Добавить</button>
               </div>`;
 
 
-const renderProducts = (list) => {
+const renderProducts = (list = []) => {
     const productList = list.map(good => renderProduct(good.title, good.price)); //сократила запись стрелочной функции
     let str = '';
     productList.forEach(element => {
         str += element;
     });
-    document.querySelector('.products').innerHTML = str; // убирает запятые между эелементами на странице
+    document.querySelector('.products').innerHTML = str; // убирает запятые между эелементами на странице, 
+                                                        // это происходило потому что на страницу вставлялся массив, между его элементами автоматически добавляется запятая
 
     return productList;
 };
