@@ -1,0 +1,20 @@
+header {
+    height: 60px;
+    width: 100%;
+    margin: 0 auto;
+    background-color: beige;
+    padding: 20px 50px;
+}
+
+.goods-list {
+    display: flex;
+}
+
+.goods-item {
+    /* width: 50px;
+    height: 80px; */
+    margin: 20px;
+    padding: 10px;
+
+    border: solid 1px black;
+}
