@@ -1,30 +1,75 @@
+const API = 'https://raw.githubusercontent.com/GeekBrainsTutorial/online-store-api/master/responses';
+
+// let getRequest = (url, cb) => {
+//     let xhr = new XMLHttpRequest();
+//     xhr.open('GET', url, true);
+//     xhr.onreadystatechange = () => {
+//         if (xhr.readyState === 4) {
+//             if (xhr.status !== 200) {
+//                 console.log('Error');
+//             } else {
+//                 cb(xhr.responseText);
+//             }
+//         }
+//     };
+
+//     xhr.send();
+// }
+
+
+
 class ProductsList {
     constructor () {
         this.container = document.querySelector('.goods-list');
         this.goods = [];
         this.productsObjects = [];
 
-        this.fetchGoods();
-        this.render();
+        // this.fetchGoods();
+        // this.render();
+        this.getRequest(`${API}/catalogData.json`)
+            .then(response => {
+                console.log(response);
+                this._goods = JSON.parse(response);
+                this.render();
+            })
+            .catch((error) => console.log(error));
     }
 
-    fetchGoods () {
-        this.goods = [
-            { id: 1, title: 'Shirt', price: 150 },
-            { id: 2, title: 'Socks', price: 50 },
-            { id: 3, title: 'Jacket', price: 350 },
-            { id: 4, title: 'Shoes', price: 250 },
-        ]
-    }
+    // fetchGoods () {
+    //     getRequest(`${API}/catalogData.json`, (data) => {
+    //         this._goods = JSON.parse(data); 
+    //         this.render();
+    //         console.log(this._goods);
+    //     });
+    // }
 
     render () {
-        for (const good of this.goods) {
+        for (const good of this._goods) {
             const productsObject = new ProductItem(good);
 
             this.productsObjects.push(productsObject); 
             this.container.insertAdjacentHTML("beforeend", productsObject.getHtmlString());
         }
         document.querySelector('.total-sum').insertAdjacentHTML("afterbegin", this.getTotalPrice());
+    }
+
+    getRequest = (url) => {
+        return new Promise((resolve, reject) => {
+            let xhr = new XMLHttpRequest();
+            xhr.open('GET', url, true);
+            xhr.onreadystatechange = () => {
+                if (xhr.readyState === 4) {
+                    if (xhr.status !== 200) {
+                        reject('Error');
+                    } else {
+                        resolve(xhr.responseText);
+                    }
+                }
+            };
+    
+            xhr.send();
+        });
+    
     }
 
     getTotalPrice () {
@@ -38,8 +83,8 @@ class ProductsList {
 
 class ProductItem {
     constructor (product, img = 'http://via.placeholder.com/200x150') {
-        this.id = product.id; 
-        this.title = product.title; 
+        this.id = product.id_product; 
+        this.title = product.product_name; 
         this.price = product.price; 
         this.img = img; 
     }
@@ -59,8 +104,9 @@ new ProductsList();
 
 //классы для корзины товаров
 
-class CartItem {
+class CartItem extends ProductItem{
     constructor () {
+        super(product, img);
         //some code
     }
     render () {
@@ -87,53 +133,24 @@ class CartList {
 
 
 
-//с прошлого урока
+// // Promise 
 
-// class GoodsItem {
-//     constructor(title, price) {
-//         this.title = title;
-//         this.price = price;
-//     }
+// let num = (a) => {
+//     return new Promise((resolve, reject) => {
+//         setTimeout(()=>{
+//             if (a) resolve(200 + a);
+//             else reject('No a value');
+//         }, 2000);
+//     });
+// }
 
-//     render() {
-//         return `<div class="goods-item"><h3>${this.title}</h3><p>${this.price}</p></div>`;
-//     }
-// };
-
-// class GoodsList {
-//     constructor() {
-//         this.goods = [];
-//     }
-//     fetchGoods() {
-//         this.goods = [
-//             { title: 'Shirt', price: 150 },
-//             { title: 'Socks', price: 50 },
-//             { title: 'Jacket', price: 350 },
-//             { title: 'Shoes', price: 250 },
-//         ]
-//     }
-//     render() {
-//         let str = '';
-//         this.goods.forEach(good => {
-//             const goodItem = new GoodsItem(good.title, good.price);
-//             str += goodItem.render();
-//         });
-
-//         document.querySelector('.goods-list').insertAdjacentHTML("afterbegin", str); 
-//         document.querySelector('.total-sum').insertAdjacentHTML("afterbegin", this.getTotalPrice());
-//     }
-    // getTotalPrice () {
-    //     let sum = 0;
-    //     this.goods.forEach(good => {
-    //         sum += good.price; 
-    //     }) ;
-    //     return sum;
-    // }
-// };
-
-// const list = new GoodsList ();
-// list.fetchGoods ();
-// list.render ();
+// num (12)
+//     .then((data) => {
+//         console.log(data);
+//     })
+//     .catch((err) => {
+//         console.log(err);
+//     });
 
 
 
