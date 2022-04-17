@@ -51,6 +51,7 @@ class ProductsList {
             this.container.insertAdjacentHTML("beforeend", productsObject.getHtmlString());
         }
         document.querySelector('.total-sum').insertAdjacentHTML("afterbegin", this.getTotalPrice());
+        this.addProductToCart(new CartItem);
     }
 
     getRequest = (url) => {
@@ -60,7 +61,7 @@ class ProductsList {
             xhr.onreadystatechange = () => {
                 if (xhr.readyState === 4) {
                     if (xhr.status !== 200) {
-                        reject('Error');
+                        reject(xhr.responseText);
                     } else {
                         resolve(xhr.responseText);
                     }
@@ -78,6 +79,20 @@ class ProductsList {
             sum += product.price; 
         }) ;
         return sum;
+    }
+
+    //навешиваем обработчик события на каждую кнопку товара
+    addProductToCart(callback) {
+        let arrOfAddButtons = document.querySelectorAll('.goods-item');
+        arrOfAddButtons.forEach(element => {
+            element.addEventListener('click', function (event) {
+                let button = element.querySelector('.buy-button');
+                if (event.target === button) {
+                    //при нажатии на кнопку див с товаром должен добавляться в корзину и отрисовываться 
+                    callback(element);
+                };
+            });
+        });
     }
 };
 
@@ -105,31 +120,49 @@ new ProductsList();
 //классы для корзины товаров
 
 class CartItem extends ProductItem{
-    constructor () {
+    constructor (product, img) {
         super(product, img);
-        //some code
+        this.render();
     }
     render () {
-        //
+        return`
+        <div class='cart-item'>
+            ${this.getHtmlString()}
+            <div>
+                <p> Количество </p>
+                <p> </p>
+            </div>
+            <div> 
+                <p> Цена</p>
+                <p> ${this.price} </p>
+            </div>
+        </div>`
     }
 
 };
 
-class CartList {
-    constructor () {
-        //some code
-    }
-    addItem() {
-        //some code
-    }
-    removeItem () {
-        //some code
-    }
-    getTotalPrice () {
-        //some code
-    }
+// class CartList {
+//     constructor () {
+//         this.container = document.querySelector('.cart-container');
+//         //this.container.insertAdjacentHTML('beforeend', this.render());
+//     }
 
-};
+//     render () {
+//         return `<div class='cart-item'>
+//             ${}
+//         </div>`
+//     }
+//     addItem() {
+//         //some code
+//     }
+//     removeItem () {
+//         //some code
+//     }
+//     getTotalPrice () {
+//         //some code
+//     }
+
+// };
 
 
 
