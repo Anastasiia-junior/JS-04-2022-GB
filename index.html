@@ -23,8 +23,33 @@
         <div> 
                 Итого: <b class="total-sum"></b>
         </div>
+
+        <form action="#" method="post">
+            <div>
+                <label for="name">Введите свое имя русским алфавитом</label>
+                <input type="text" name="name" id="name" required minlength="2" maxlength="10">
+            </div>
+            
+            <div>
+                <label for="email">Введите ваш email</label>
+            <input type="email" required>
+            </div>
+
+            <div>
+                <label for="tel">Введите ваш телефон</label>
+            <input type="tel" placeholder="+7(999)000 00 00">
+            </div>
+
+            <div>
+                <label for="text">Введите ваш вопрос</label>
+            <textarea name="text" id="text" cols="30" rows="10"></textarea>
+            </div>
+
+            <button type="button">Отправить форму</button>
+        </form>
     </main>
     <script src="./script.js"></script>
+    <script src="./form.js"></script>
 </body>
 
 </html>
