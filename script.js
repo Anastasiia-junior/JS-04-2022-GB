@@ -23,6 +23,7 @@ class ProductsList {
         this.container = document.querySelector('.goods-list');
         this.goods = [];
         this.productsObjects = [];
+        this.filteredProducts = [];
 
         // this.fetchGoods();
         // this.render();
@@ -30,6 +31,7 @@ class ProductsList {
             .then(response => {
                 console.log(response);
                 this._goods = JSON.parse(response);
+                this.filteredProducts = JSON.parse(response)
                 this.render();
             })
             .catch((error) => console.log(error));
@@ -43,16 +45,22 @@ class ProductsList {
     //     });
     // }
 
-    render () {
+    render() {
         for (const good of this._goods) {
             const productsObject = new ProductItem(good);
 
-            this.productsObjects.push(productsObject); 
+            this.productsObjects.push(productsObject);
             this.container.insertAdjacentHTML("beforeend", productsObject.getHtmlString());
         }
+
         document.querySelector('.total-sum').insertAdjacentHTML("afterbegin", this.getTotalPrice());
+
     }
 
+
+
+
+    
     getRequest = (url) => {
         return new Promise((resolve, reject) => {
             let xhr = new XMLHttpRequest();
@@ -68,6 +76,16 @@ class ProductsList {
             };
     
             xhr.send();
+        });
+
+    filterProducts = (value) => {
+        //здесь будем фильтровать список товаров
+
+    }
+
+    searchButton.addEventListener('click', (e) => {
+        const value = searchInput.value;
+        list.filterProducts(value);
         });
     
     }
