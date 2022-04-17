@@ -82,7 +82,7 @@ class ProductsList {
     }
 
     //навешиваем обработчик события на каждую кнопку товара
-    addProductToCart(callback) {
+    addProductToCart(callback, arr) {
         let arrOfAddButtons = document.querySelectorAll('.goods-item');
         arrOfAddButtons.forEach(element => {
             element.addEventListener('click', function (event) {
