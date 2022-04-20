@@ -18,3 +18,8 @@ header {
 
     border: solid 1px black;
 }
+
+.form--invalid {
+    outline: none;
+    border-color: red;
+}
