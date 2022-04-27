@@ -1,0 +1,36 @@
+.goodInCart img {
+    width: 50px;
+    
+}
+
+header {
+    position: relative;
+    display: flex;
+    justify-content: space-between;
+    height: 200px;
+    background-color: rgb(86, 84, 84);
+}
+
+header div {
+    width: 50%;
+}
+
+.cart {
+    position: absolute;
+    width: 260px;
+    min-height: 50px;
+    background-color: bisque;
+    padding: 10px;
+}
+
+.goodInCart {
+    display: flex;
+    padding: 20px 10px;
+    border: 1px solid black;
+    width: 200px;
+}
+
+.goods-list {
+    display: flex;
+    justify-content: space-around;
+}

@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="./style.css">
+</head>
+
+<body>
+    <div id="app">
+        <header>
+            <div>
+                <input type="text" class="goods-search" v-model="searchLine" />
+                <button class="search-button" type="button" @click="filterGoods()">Искать</button>
+            </div>
+            <div>
+                <button class="cart-button" type="button" @click="isVisibleCart = !isVisibleCart">Корзина</button>
+
+                <div v-if="isVisibleCart" class="cart">
+                    <div v-if="cart.length==0">
+                        <span>Нет товаров в корзине</span>
+                    </div>
+                    <div v-else>
+                        <div class="goodInCart" v-for="good of cart" :key="good.id">
+                            <img :src="imgCatalog" alt="">
+                            <h3>{{ good.title }}</h3>
+                            <p>{{ good.price * good.quantity }}</p>
+                            <button @click='good.quantity++'>+</button>
+                            <p>{{good.quantity}}</p>
+                            <button @click='good.quantity--'>-</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </header>
+        <main>
+            <div class="goods-list">
+                <div class="good" v-for="good of goods" :key="good.id_product">
+                    <img :src="imgCatalog" alt="">
+                    <h3>{{ good.product_name }}</h3>
+                    <p>{{ good.price }}</p>
+                    <button @click='addProduct(good)'>Buy</button>
+                </div>
+            </div>
+            <div>
+                Итого: <span class="total-sum"></span>
+            </div>
+
+        </main>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.6.14/dist/vue.js"></script>
+    <script src="./script.js"></script>
+</body>
+
+</html>
