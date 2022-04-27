@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <div id="app">
+
+        <h1>{{ title }}</h1>
+        <h3>{{ sayHello() }}</h3>
+        <!-- <a v-bind:href="link">Google</a> -->
+        <a :href="link">Google</a>
+        <div v-html="completeElement"></div>
+        <input type="number" v-model.number="number">
+        <p>{{number}}</p>
+        <!-- <button v-on:click="counter++">Counter: {{ counter }}</button> -->
+        <button @click="increase(2, $event)">Counter: {{ counter }}</button>
+
+        <p @mousemove="getCoordinates($event)"> Current position {{x}} / {{y}}
+            <span @mousemove.stop>Don't catch the coordinates</span>
+        </p>
+
+        <div>
+            <button @click="counter++">Increase</button>
+            <button @click="counter--">Decrease</button>
+            <button @click="secondCounter++">Increase second counter</button>
+            <p>Counter {{ counter }} | {{ secondCounter }}</p>
+            <p>Result: {{ result() }} | {{ computedResult }}</p>
+        </div>
+
+        <div>
+            <input type="text" name="" id="" v-model="width">
+            <input type="text" name="" id="" v-model="color">
+
+            <div class="block" :style="myStyle"></div>
+        </div>
+
+        <h3 v-if="show">I'm visible</h3>
+        <h3 v-else>Now I'm visible</h3>
+
+
+        <div class="catalog">
+            <div class="product" v-for="product of products" :key="product.id">
+                <img :src="product.img" alt="">
+                <div class="description">
+                    <p>{{ product.title }}</p>
+                    <p>{{ product.quantity }}</p>
+                    <p>{{ product.price * product.quantity }}</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+
+    <style>
+        .block {
+            width: 100px;
+            height: 100px;
+            background-color: gray;
+        }
+    </style>
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.6.14/dist/vue.js"></script>
+    <script src="./script.js"></script>
+</body>
+
+</html>
